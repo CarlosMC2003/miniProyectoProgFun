@@ -3,12 +3,19 @@ def simpson(f: Double => Double, a: Int, b: Int) : Double = {
   (b - a) * ((f(a) + (4 * f((a + b)/2)) + f(b))) / 6
 
 }
-/*
-def simpsonCompuesta(f: Double => Double, a: Int) : Double = {
 
+def simpsonCompuesta(f: Double => Double, a: Double, b : Double, n : Int) : Double = {
 
+  def xj (a: Double, j: Double, h: Double ): Double = {
+    a + j * h
+  }
+  val h = (b - a) / n
 
-}*/
+  (h/3) * (1 to n / 2).toList.map(
+    x => f(xj(a, 2 * x - 2, h)) + 4 * f(xj(a, 2 * x - 1, h))
+      + f(xj(a, 2 * x, h))).sum
+
+}
 
 val funcion1 = (a: Double) => (-Math.pow(a,2)) + (8 * a) - 12
 
@@ -24,6 +31,7 @@ val funcion6 = (a: Double) => (1 / Math.sqrt(a - 1))
 
 val funcion7 = (a: Double) => (1 / (1 + Math.pow(a, 2)))
 
+println("SIMPSON 1/3")
 simpson(funcion1, 3, 5)
 
 simpson(funcion2, 0, 2)
@@ -37,3 +45,18 @@ simpson(funcion5, 0, 1)
 simpson(funcion6, 2, 3)
 
 simpson(funcion7, 0, 1)
+
+println("SIMPSON COMPUESTA")
+simpsonCompuesta(funcion1, 3, 5, 20)
+
+simpsonCompuesta(funcion2, 0, 2, 20)
+
+simpsonCompuesta(funcion3, -1, 1, 20)
+
+simpsonCompuesta(funcion4, 1, 2, 20)
+
+simpsonCompuesta(funcion5, 0, 1, 20)
+
+simpsonCompuesta(funcion6, 2, 3, 20)
+
+simpsonCompuesta(funcion7, 0, 1, 20)
